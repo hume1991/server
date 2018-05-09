@@ -130,6 +130,13 @@ class Factory implements IFactory {
 			return $this->requestLanguage;
 		}
 
+		$forceLang = $this->config->getSystemValue('force_language', false);
+		if (is_string($forceLang)) {
+			if ($this->languageExists($app, $forceLang)) {
+				return $forceLang;
+			}
+		}
+
 		/**
 		 * At this point Nextcloud might not yet be installed and thus the lookup
 		 * in the preferences table might fail. For this reason we need to check
